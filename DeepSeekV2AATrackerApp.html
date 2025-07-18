@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serenity | Wellness & Recovery Companion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(165, 180, 252, 0.3);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            animation: bubble-pop 0.8s forwards;
+        }
+        
+        @keyframes bubble-pop {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                width: 100px;
+                height: 100px;
+                opacity: 0;
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .text-hover:hover {
+            color: #6366f1;
+        }
+        
+        .dropdown-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .progress-ring__circle {
+            transition: stroke-dashoffset 0.5s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-indigo-600 text-white shadow-lg">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center">
+                        <i class="fas fa-heart text-xl mr-2"></i>
+                        <span class="font-semibold text-xl">Serenity</span>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#recovery" class="text-hover hover:text-indigo-200 transition">Recovery</a>
+                    <a href="#wellness" class="text-hover hover:text-indigo-200 transition">Wellness</a>
+                    <a href="#lifestyle" class="text-hover hover:text-indigo-200 transition">Lifestyle</a>
+                    <a href="#profile" class="text-hover hover:text-indigo-200 transition">Profile</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="p-2 rounded-md hover:bg-indigo-700 focus:outline-none">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-indigo-700">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#recovery" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-600">Recovery</a>
+                <a href="#wellness" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-600">Wellness</a>
+                <a href="#lifestyle" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-600">Lifestyle</a>
+                <a href="#profile" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-600">Profile</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Recovery Tools Section -->
+        <section id="recovery" class="mb-12 fade-in">
+            <h2 class="text-2xl font-bold mb-6 text-indigo-800 flex items-center">
+                <i class="fas fa-book-open mr-2"></i> Daily Reflection
+            </h2>
+            <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover transition duration-300">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold text-indigo-700">Today's Reflection</h3>
+                        <span class="text-sm text-gray-500">June 15, 2023</span>
+                    </div>
+                    <div class="bg-indigo-50 p-4 rounded-lg mb-6">
+                        <p class="text-gray-700 leading-relaxed">
+                            "Acceptance is the answer to all my problems today. When I am disturbed, it is because I find some person, place, thing, or situation—some fact of my life—unacceptable to me, and I can find no serenity until I accept that person, place, thing, or situation as being exactly the way it is supposed to be at this moment."
+                            <br><br>
+                            - Alcoholics Anonymous, p. 417
+                        </p>
+                    </div>
+                    <div class="mb-6">
+                        <label for="interpretation" class="block text-sm font-medium text-gray-700 mb-2">Your Thoughts</label>
+                        <textarea id="interpretation" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Write your personal interpretation here..."></textarea>
+                    </div>
+                    <div class="flex justify-between">
+                        <button id="save-reflection" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition relative overflow-hidden">
+                            Save Reflection
+                        </button>
+                        <button class="px-4 py-2 border border-indigo-600 text-indigo-600 rounded-md hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition">
+                            View Past Entries
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wellness Tracking Section -->
+        <section id="wellness" class="mb-12 fade-in">
+            <h2 class="text-2xl font-bold mb-6 text-indigo-800 flex items-center">
+                <i class="fas fa-heartbeat mr-2"></i> Wellness Check-in
+            </h2>
+            <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover transition duration-300">
+                <div class="p-6">
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-indigo-700 mb-3">How are you feeling right now?</h3>
+                        <div class="flex justify-between space-x-2">
+                            <button class="mood-btn flex-1 py-3 rounded-md flex flex-col items-center hover:bg-gray-50 transition" data-mood="terrible">
+                                <i class="fas fa-sad-tear text-2xl text-red-500 mb-1"></i>
+                                <span class="text-xs">Terrible</span>
+                            </button>
+                            <button class="mood-btn flex-1 py-3 rounded-md flex flex-col items-center hover:bg-gray-50 transition" data-mood="bad">
+                                <i class="fas fa-frown text-2xl text-orange-500 mb-1"></i>
+                                <span class="text-xs">Bad</span>
+                            </button>
+                            <button class="mood-btn flex-1 py-3 rounded-md flex flex-col items-center hover:bg-gray-50 transition" data-mood="neutral">
+                                <i class="fas fa-meh text-2xl text-yellow-500 mb-1"></i>
+                                <span class="text-xs">Neutral</span>
+                            </button>
+                            <button class="mood-btn flex-1 py-3 rounded-md flex flex-col items-center hover:bg-gray-50 transition" data-mood="good">
+                                <i class="fas fa-smile text-2xl text-blue-500 mb-1"></i>
+                                <span class="text-xs">Good</span>
+                            </button>
+                            <button class="mood-btn flex-1 py-3 rounded-md flex flex-col items-center hover:bg-gray-50 transition" data-mood="great">
+                                <i class="fas fa-laugh text-2xl text-green-500 mb-1"></i>
+                                <span class="text-xs">Great</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-indigo-700 mb-3">List three things you're grateful for</h3>
+                        <div class="space-y-3">
+                            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="1. ">
+                            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="2. ">
+                            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="3. ">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-semibold text-indigo-700 mb-3">Your Goals</h3>
+                        <div class="space-y-4">
+                            <div class="dropdown">
+                                <button class="w-full flex justify-between items-center px-4 py-3 bg-indigo-50 rounded-md hover:bg-indigo-100 transition">
+                                    <span>Short-term (Daily) Goals</span>
+                                    <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                                </button>
+                                <div class="dropdown-content mt-2 p-4 bg-white border border-gray-200 rounded-md">
+                                    <div class="flex items-center mb-2">
+                                        <input type="checkbox" class="mr-2 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                                        <span>Attend morning meditation</span>
+                                    </div>
+                                    <div class="flex items-center mb-2">
+                                        <input type="checkbox" class="mr-2 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                                        <span>Call my sponsor</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" class="mr-2 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                                        <span>Exercise for 30 minutes</span>
+                                    </div>
+                                    <input type="text" class="w-full mt-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Add new goal...">
+                                </div>
+                            </div>
+                            
+                            <div class="dropdown">
+                                <button class="w-full flex justify-between items-center px-4 py-3 bg-indigo-50 rounded-md hover:bg-indigo-100 transition">
+                                    <span>Medium-term (Weekly) Goals</span>
+                                    <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                                </button>
+                                <div class="dropdown-content mt-2 p-4 bg-white border border-gray-200 rounded-md">
+                                    <div class="flex items-center mb-2">
+                                        <input type="checkbox" class="mr-2 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                                        <span>Attend 3 support group meetings</span>
+                                    </div>
+                                    <div class="flex items-center mb-2">
+                                        <input type="checkbox" class="mr-2 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                                        <span>Complete step work</span>
+                                    </div>
+                                    <input type="text" class="w-full mt-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Add new goal...">
+                                </div>
+                            </div>
+                            
+                            <div class="dropdown">
+                                <button class="w-full flex justify-between items-center px-4 py-3 bg-indigo-50 rounded-md hover:bg-indigo-100 transition">
+                                    <span>Long-term (Yearly) Goals</span>
+                                    <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                                </button>
+                                <div class="dropdown-content mt-2 p-4 bg-white border border-gray-200 rounded-md">
+                                    <div class="flex items-center mb-2">
+                                        <input type="checkbox" class="mr-2 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                                        <span>Complete 12-step program</span>
+                                    </div>
+                                    <div class="flex items-center mb-2">
+                                        <input type="checkbox" class="mr-2 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                                        <span>Become a sponsor</span>
+                                    </div>
+                                    <input type="text" class="w-full mt-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Add new goal...">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <button id="save-wellness" class="w-full px-4 py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition relative overflow-hidden">
+                            Save Wellness Check-in
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lifestyle Management Section -->
+        <section id="lifestyle" class="mb-12 fade-in">
+            <h2 class="text-2xl font-bold mb-6 text-indigo-800 flex items-center">
+                <i class="fas fa-utensils mr-2"></i> Lifestyle Management
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Meal Planning -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover transition duration-300">
+                    <div class="p-6">
+                        <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center">
+                            <i class="fas fa-calendar-alt mr-2"></i> Meal Planning
+                        </h3>
+                        
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Dietary Preferences</label>
+                            <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                <option>Standard</option>
+                                <option>Vegetarian</option>
+                                <option>Vegan</option>
+                                <option>Keto</option>
+                                <option>Gluten-Free</option>
+                            </select>
+                        </div>
+                        
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-2 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                                <span>Breakfast at 8:00 AM</span>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-2 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                                <span>Lunch at 12:30 PM</span>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" class="mr-2 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                                <span>Dinner at 6:30 PM</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <button class="w-full px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition">
+                                Set Meal Reminders
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sleep Tracking -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover transition duration-300">
+                    <div class="p-6">
+                        <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center">
+                            <i class="fas fa-moon mr-2"></i> Sleep Tracking
+                        </h3>
+                        
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Bedtime Goal</label>
+                            <input type="time" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" value="22:30">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Wake-up Goal</label>
+                            <input type="time" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" value="06:30">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Sleep Quality Last Night</label>
+                            <div class="flex justify-between">
+                                <button class="px-3 py-1 bg-gray-100 rounded-md hover:bg-gray-200">Poor</button>
+                                <button class="px-3 py-1 bg-gray-100 rounded-md hover:bg-gray-200">Fair</button>
+                                <button class="px-3 py-1 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Good</button>
+                                <button class="px-3 py-1 bg-gray-100 rounded-md hover:bg-gray-200">Excellent</button>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <button class="w-full px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition">
+                                View Sleep Patterns
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress Tracking -->
+        <section class="mb-12 fade-in">
+            <h2 class="text-2xl font-bold mb-6 text-indigo-800 flex items-center">
+                <i class="fas fa-chart-line mr-2"></i> Your Progress
+            </h2>
+            
+            <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover transition duration-300">
+                <div class="p-6">
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <!-- Sobriety Tracker -->
+                        <div class="flex flex-col items-center">
+                            <div class="relative w-32 h-32 mb-4">
+                                <svg class="w-full h-full" viewBox="0 0 100 100">
+                                    <circle class="text-gray-200" stroke-width="8" stroke="currentColor" fill="transparent" r="40" cx="50" cy="50" />
+                                    <circle class="text-indigo-600" stroke-width="8" stroke-dasharray="251.2" stroke-dashoffset="50.24" stroke-linecap="round" stroke="currentColor" fill="transparent" r="40" cx="50" cy="50" />
+                                </svg>
+                                <div class="absolute inset-0 flex items-center justify-center flex-col">
+                                    <span class="text-2xl font-bold">80%</span>
+                                    <span class="text-xs text-gray-500">Completion</span>
+                                </div>
+                            </div>
+                            <h3 class="font-semibold text-indigo-700 mb-2">Step Work</h3>
+                            <p class="text-sm text-gray-600 text-center">You've completed 8 of 12 steps</p>
+                        </div>
+                        
+                        <!-- Wellness Score -->
+                        <div class="flex flex-col items-center">
+                            <div class="relative w-32 h-32 mb-4">
+                                <svg class="w-full h-full" viewBox="0 0 100 100">
+                                    <circle class="text-gray-200" stroke-width="8" stroke="currentColor" fill="transparent" r="40" cx="50" cy="50" />
+                                    <circle class="text-green-500" stroke-width="8" stroke-dasharray="251.2" stroke-dashoffset="125.6" stroke-linecap="round" stroke="currentColor" fill="transparent" r="40" cx="50" cy="50" />
+                                </svg>
+                                <div class="absolute inset-0 flex items-center justify-center flex-col">
+                                    <span class="text-2xl font-bold">50%</span>
+                                    <span class="text-xs text-gray-500">Wellness</span>
+                                </div>
+                            </div>
+                            <h3 class="font-semibold text-indigo-700 mb-2">Wellness Score</h3>
+                            <p class="text-sm text-gray-600 text-center">Based on your recent check-ins</p>
+                        </div>
+                        
+                        <!-- Streak Counter -->
+                        <div class="flex flex-col items-center">
+                            <div class="relative w-32 h-32 mb-4">
+                                <svg class="w-full h-full" viewBox="0 0 100 100">
+                                    <circle class="text-gray-200" stroke-width="8" stroke="currentColor" fill="transparent" r="40" cx="50" cy="50" />
+                                    <circle class="text-yellow-500" stroke-width="8" stroke-dasharray="251.2" stroke-dashoffset="0" stroke-linecap="round" stroke="currentColor" fill="transparent" r="40" cx="50" cy="50" />
+                                </svg>
+                                <div class="absolute inset-0 flex items-center justify-center flex-col">
+                                    <span class="text-2xl font-bold">120</span>
+                                    <span class="text-xs text-gray-500">Days</span>
+                                </div>
+                            </div>
+                            <h3 class="font-semibold text-indigo-700 mb-2">Sobriety Streak</h3>
+                            <p class="text-sm text-gray-600 text-center">Keep going strong!</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <button class="w-full px-4 py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition">
+                            Export Progress Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-indigo-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center">
+                        <i class="fas fa-heart text-xl mr-2"></i>
+                        <span class="font-semibold text-xl">Serenity</span>
+                    </div>
+                    <p class="text-indigo-200 mt-2">Your wellness and recovery companion</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-indigo-300 transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="hover:text-indigo-300 transition"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="hover:text-indigo-300 transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="hover:text-indigo-300 transition"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            <div class="border-t border-indigo-700 mt-6 pt-6 text-sm text-indigo-300 text-center">
+                <p>© 2023 Serenity App. All rights reserved. | <a href="#" class="hover:text-white">Privacy Policy</a> | <a href="#" class="hover:text-white">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Dropdown functionality
+        document.querySelectorAll('.dropdown button').forEach(button => {
+            button.addEventListener('click', function() {
+                const dropdownContent = this.nextElementSibling;
+                const icon = this.querySelector('i');
+                
+                if (dropdownContent.style.display === 'block') {
+                    dropdownContent.style.display = 'none';
+                    icon.style.transform = 'rotate(0deg)';
+                } else {
+                    dropdownContent.style.display = 'block';
+                    icon.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+
+        // Mood selection
+        document.querySelectorAll('.mood-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.mood-btn').forEach(b => {
+                    b.classList.remove('bg-indigo-100', 'border-indigo-300');
+                });
+                this.classList.add('bg-indigo-100', 'border', 'border-indigo-300');
+            });
+        });
+
+        // Bubble animation on button clicks
+        function createBubble(e) {
+            const button = e.currentTarget;
+            const rect = button.getBoundingClientRect();
+            
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble');
+            bubble.style.left = `${e.clientX - rect.left}px`;
+            bubble.style.top = `${e.clientY - rect.top}px`;
+            
+            button.appendChild(bubble);
+            
+            setTimeout(() => {
+                bubble.remove();
+            }, 800);
+        }
+
+        document.getElementById('save-reflection').addEventListener('click', createBubble);
+        document.getElementById('save-wellness').addEventListener('click', createBubble);
+
+        // Auto-save functionality
+        let saveTimeout;
+        
+        function autoSave() {
+            clearTimeout(saveTimeout);
+            saveTimeout = setTimeout(() => {
+                // In a real app, this would save to local storage or backend
+                console.log('Auto-saving data...');
+                
+                // Show a temporary notification
+                const notification = document.createElement('div');
+                notification.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg';
+                notification.textContent = 'Changes saved successfully!';
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.remove();
+                }, 3000);
+            }, 2000);
+        }
+
+        // Set up auto-save listeners
+        document.getElementById('interpretation').addEventListener('input', autoSave);
+        document.querySelectorAll('input[type="text"]').forEach(input => {
+            input.addEventListener('input', autoSave);
+        });
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', autoSave);
+        });
+        document.querySelectorAll('select').forEach(select => {
+            select.addEventListener('change', autoSave);
+        });
+
+        // Fade-in animation for sections
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
